@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="mus">Mus</string>
+    <string name="spinner_software">Spinner Software!</string>
+    <string name="georoscope">Georoscope</string>
+    <string name="muk">Muk</string>
+    <string name="gravity">Gravity</string>
 </resources>
