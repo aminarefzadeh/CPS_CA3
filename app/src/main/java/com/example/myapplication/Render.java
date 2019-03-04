@@ -13,26 +13,6 @@ public class Render {
         this.degy = Math.toRadians(degy);
     }
 
-    public double getMuk() {
-        return muk;
-    }
-
-    public double getMus() {
-        return mus;
-    }
-
-    public double getDegx() {
-        return Math.toDegrees(degx);
-    }
-
-    public double getDegy() {
-        return Math.toDegrees(degy);
-    }
-
-    public double getGravity() {
-        return gravity;
-    }
-
     public void setGravity(double gravity) {
         this.gravity = gravity;
     }
@@ -43,6 +23,14 @@ public class Render {
 
     public void setMus(double mus) {
         this.mus = mus;
+    }
+
+    public void setMaxX(double maxX) {
+        this.maxX = maxX;
+    }
+
+    public void setMaxY(double maxY) {
+        this.maxY = maxY;
     }
 
     public double getX() {
@@ -60,6 +48,32 @@ public class Render {
         ret  = render1D(degy, vy, time, y);
         this.y = ret.get(0);
         this.vy = ret.get(1);
+
+        if(this.x > 0){
+            if(this.x > this.maxX){
+                this.x = this.maxX ;
+                this.vx = 0.0;
+            }
+        }
+        else{
+            if(this.x < -this.maxX){
+                this.x = -this.maxX ;
+                this.vx = 0.0;
+            }
+        }
+
+        if(this.y > 0){
+            if(this.y > this.maxY){
+                this.y = this.maxY ;
+                this.vy = 0.0;
+            }
+        }
+        else{
+            if(this.y < -this.maxY){
+                this.y = -this.maxY ;
+                this.vy = 0.0;
+            }
+        }
     }
 
     private ArrayList<Double> render1D(double deg, double v, double time, double prev){
@@ -134,4 +148,8 @@ public class Render {
 
     private double x = 0;
     private double y = 0;
+
+    private double maxX = 380;
+    private double maxY = 512;
+
 }
