@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void geoOnClick(View v){
-        System.out.println("geo");
+    public void gyroOnClick(View v){
+        System.out.println("gyro");
         SeekBar gravitySeekBar = (SeekBar)findViewById(R.id.seekBar1);
         SeekBar MukSeekBar = (SeekBar)findViewById(R.id.seekBar2);
         SeekBar MusSeekBar = (SeekBar)findViewById(R.id.seekBar3);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(MukValue);
         System.out.println(MusValue);
         Intent newActivity1 = new Intent(this, BaseActivity.class);
-        newActivity1.putExtra("type","geo");
+        newActivity1.putExtra("type","gyro");
         newActivity1.putExtra("gravity",gravityValue);
         newActivity1.putExtra("Muk",MukValue);
         newActivity1.putExtra("Mus",MusValue);

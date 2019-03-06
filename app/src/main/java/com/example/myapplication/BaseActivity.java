@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements SensorEventListener{
 
     private SensorManager sensorManager;
     private Sensor gyroSensor;
-    private SensorEventListener gyroEventListener;
+    private Sensor gravitySensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,34 +21,36 @@ public class BaseActivity extends AppCompatActivity {
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
+        for(Sensor s : sensorManager.getSensorList(Sensor.TYPE_ALL)){
+            System.out.println(s);
+        }
         if(gyroSensor == null) {
             Toast.makeText(this, "This device has no gyroscope!", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-        gyroEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        };
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(gyroEventListener, gyroSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, gyroSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     @Override
     protected  void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(gyroEventListener);
+        sensorManager.unregisterListener(this);
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        System.out.println(event.values[0]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
 }
