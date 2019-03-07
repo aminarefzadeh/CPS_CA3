@@ -34,6 +34,14 @@ public class Render {
         this.maxY = maxY;
     }
 
+    public void setMinX(double minX) {
+        this.minX = minX;
+    }
+
+    public void setMinY(double minY) {
+        this.minY = minY;
+    }
+
     public double getX() {
         return x;
     }
@@ -50,30 +58,24 @@ public class Render {
         this.y = ret.get(0);
         this.vy = ret.get(1);
 
-        if(this.x > 0){
-            if(this.x > this.maxX){
-                this.x = this.maxX ;
-                this.vx = 0.0;
-            }
-        }
-        else{
-            if(this.x < -this.maxX){
-                this.x = -this.maxX ;
-                this.vx = 0.0;
-            }
+
+        if(this.x > maxX){
+            this.x = maxX ;
+            this.vx = 0.0;
         }
 
-        if(this.y > 0){
-            if(this.y > this.maxY){
-                this.y = this.maxY ;
-                this.vy = 0.0;
-            }
+        else if(this.x < minX){
+            this.x = minX ;
+            this.vx = 0.0;
         }
-        else{
-            if(this.y < -this.maxY){
-                this.y = -this.maxY ;
-                this.vy = 0.0;
-            }
+
+        if(this.y > maxY){
+            this.y = maxY ;
+            this.vy = 0.0;
+        }
+        else if(this.y < minY){
+            this.y = minY;
+            this.vy = 0.0;
         }
     }
 
@@ -151,7 +153,9 @@ public class Render {
     private double x = 0;
     private double y = 0;
 
-    private double maxX = 380;
-    private double maxY = 512;
+    private double maxX = 1020;
+    private double maxY = 1720;
+    private double minX = -10;
+    private double minY = -10;
 
 }

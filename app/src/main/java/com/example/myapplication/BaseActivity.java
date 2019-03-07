@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -38,7 +39,10 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
         getWindowManager().getDefaultDisplay().getSize(size);
         System.out.println(size.x);
         System.out.println(size.y);
-
+        render.setMaxX(size.x - 230);
+        render.setMaxY(size.y - 310);
+        render.setMinX(-10);
+        render.setMinY(-10);
         if(sensorType.equals("gyro")) {
 
             gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -86,11 +90,14 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (this.isGravity){
-            this.render.setAccelerations(event.values[0],event.values[1],event.values[2]);
+            this.render.setAccelerations(-event.values[0],event.values[1],event.values[2]);
             double deltaTime ;
             deltaTime = (new Double(System.currentTimeMillis()) - new Double(this.timer)) / 1000;
             this.timer = System.currentTimeMillis();
             this.render.render(deltaTime);
+            ImageView ball = findViewById(R.id.imageView);
+            ball.setX(new Float(this.render.getX()));
+            ball.setY(new Float(this.render.getY()));
 
 //            System.out.println(this.render.getX());
 //            System.out.println(this.render.getY());
