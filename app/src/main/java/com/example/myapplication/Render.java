@@ -8,9 +8,10 @@ public class Render {
 
     // set degx and degy and then call render then you can get new x and y
 
-    public void setDegrees(double degx,double degy){
-        this.degx = Math.toRadians(degx);
-        this.degy = Math.toRadians(degy);
+    public void setAccelerations(double Ax,double Ay, double Az){
+        this.Ax = Ax;
+        this.Ay = Ay;
+        this.Az = Az;
     }
 
     public void setGravity(double gravity) {
@@ -42,10 +43,10 @@ public class Render {
     }
 
     public void render(double time){
-        ArrayList<Double> ret = render1D(degx, vx, time, x);
+        ArrayList<Double> ret = render1D(Ax, Az, vx, time, x);
         this.x = ret.get(0);
         this.vx = ret.get(1);
-        ret  = render1D(degy, vy, time, y);
+        ret  = render1D(Ay, Az, vy, time, y);
         this.y = ret.get(0);
         this.vy = ret.get(1);
 
@@ -76,13 +77,13 @@ public class Render {
         }
     }
 
-    private ArrayList<Double> render1D(double deg, double v, double time, double prev){
+    private ArrayList<Double> render1D(double A, double Az, double v, double time, double prev){
         // mass of object has no influence so we assume it 1
         ArrayList<Double> ret = new ArrayList<Double>();
         double newV ;
         double m = 1;
-        double fVertical = this.gravity * Math.cos(deg) * m;
-        double fHorizontal = this.gravity * Math.sin(deg) * m;
+        double fVertical = this.gravity * Az * m;
+        double fHorizontal = this.gravity * A * m;
         double fmu ;
         if(v == 0.0){
             if( Math.abs(fVertical * this.mus) >= Math.abs(fHorizontal)){
@@ -137,8 +138,9 @@ public class Render {
         return ret;
     }
 
-    private double degx = 0;
-    private double degy = 0;
+    private double Ax = 0;
+    private double Ay = 0;
+    private double Az = 9.8;
     private double gravity = 10;
     private double muk = 0.1;
     private double mus = 0.2;

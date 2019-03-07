@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
 public class BaseActivity extends AppCompatActivity implements SensorEventListener{
 
     private SensorManager sensorManager;
@@ -16,6 +17,7 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
     private Sensor gravitySensor;
     private Render render = new Render();
     private Boolean isGravity = false;
+    long timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
                 finish();
             }
         }
-
+        this.timer = System.currentTimeMillis();
     }
 
     @Override
@@ -79,9 +81,16 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (this.isGravity){
-            System.out.println(event.values[0]);
+            this.render.setAccelerations(event.values[0],event.values[1],event.values[2]);
+            double deltaTime ;
+            deltaTime = (new Double(System.currentTimeMillis()) - new Double(this.timer)) / 1000;
+            this.timer = System.currentTimeMillis();
+            this.render.render(deltaTime);
+            System.out.println(this.render.getX());
+            System.out.println(this.render.getY());
+            //System.out.println(event.values[2]);
+            System.out.println("----------------------");
         }
-
     }
 
     @Override
