@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -33,6 +34,10 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
         render.setMus(mus);
         setContentView(R.layout.activity_base);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        System.out.println(size.x);
+        System.out.println(size.y);
 
         if(sensorType.equals("gyro")) {
 
@@ -86,10 +91,11 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
             deltaTime = (new Double(System.currentTimeMillis()) - new Double(this.timer)) / 1000;
             this.timer = System.currentTimeMillis();
             this.render.render(deltaTime);
-            System.out.println(this.render.getX());
-            System.out.println(this.render.getY());
+
+//            System.out.println(this.render.getX());
+//            System.out.println(this.render.getY());
             //System.out.println(event.values[2]);
-            System.out.println("----------------------");
+//            System.out.println("----------------------");
         }
     }
 
