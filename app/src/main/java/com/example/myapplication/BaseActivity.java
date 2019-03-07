@@ -89,21 +89,19 @@ public class BaseActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        double deltaTime ;
+        deltaTime = (new Double(System.currentTimeMillis()) - new Double(this.timer)) / 1000;
+        this.timer = System.currentTimeMillis();
+        ImageView ball = findViewById(R.id.imageView);
         if (this.isGravity){
             this.render.setAccelerations(-event.values[0],event.values[1],event.values[2]);
-            double deltaTime ;
-            deltaTime = (new Double(System.currentTimeMillis()) - new Double(this.timer)) / 1000;
-            this.timer = System.currentTimeMillis();
             this.render.render(deltaTime);
-            ImageView ball = findViewById(R.id.imageView);
-            ball.setX(new Float(this.render.getX()));
-            ball.setY(new Float(this.render.getY()));
-
-//            System.out.println(this.render.getX());
-//            System.out.println(this.render.getY());
-            //System.out.println(event.values[2]);
-//            System.out.println("----------------------");
         }
+        else{
+            this.render.render(deltaTime,event.values[1],event.values[0]);
+        }
+        ball.setX(new Float(this.render.getX()));
+        ball.setY(new Float(this.render.getY()));
     }
 
     @Override

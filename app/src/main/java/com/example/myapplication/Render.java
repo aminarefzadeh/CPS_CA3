@@ -50,6 +50,39 @@ public class Render {
         return y;
     }
 
+    public void render(double time, double omegaX, double omegaY){
+        this.degX += time * omegaX;
+        this.degY += time * omegaY;
+        double Ax, Ay, Az;
+        Ax = 9.8 * Math.sin(degX);
+        Az = 9.8 * Math.cos(degX);
+        ArrayList<Double> ret = render1D(Ax, Az, vx, time, x);
+        this.x = ret.get(0);
+        this.vx = ret.get(1);
+        Ay = 9.8 * Math.sin(degY);
+        Az = 9.8 * Math.cos(degY);
+        ret  = render1D(Ay, Az, vy, time, y);
+        this.y = ret.get(0);
+        this.vy = ret.get(1);
+
+        if(this.x > maxX){
+            this.x = maxX ;
+            this.vx = 0.0;
+        }
+        else if(this.x < minX){
+            this.x = minX ;
+            this.vx = 0.0;
+        }
+        if(this.y > maxY){
+            this.y = maxY ;
+            this.vy = 0.0;
+        }
+        else if(this.y < minY){
+            this.y = minY;
+            this.vy = 0.0;
+        }
+    }
+
     public void render(double time){
         ArrayList<Double> ret = render1D(Ax, Az, vx, time, x);
         this.x = ret.get(0);
@@ -143,6 +176,10 @@ public class Render {
     private double Ax = 0;
     private double Ay = 0;
     private double Az = 9.8;
+
+    private double degX = 0;
+    private double degY = 0;
+
     private double gravity = 10;
     private double muk = 0.1;
     private double mus = 0.2;
