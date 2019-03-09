@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Spinner</string>
     <string name="mus">Mus</string>
     <string name="spinner_software">Spinner Software!</string>
     <string name="gyroscope">Gyroscope</string>

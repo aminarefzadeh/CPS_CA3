@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:maxWidth="80dp"
         android:maxHeight="80dp"
+        android:maxWidth="80dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/football"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="183dp" />
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="253dp" />
 </android.support.constraint.ConstraintLayout>
